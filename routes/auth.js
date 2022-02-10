@@ -1,0 +1,21 @@
+/*
+    Ruta: /api/login
+*/
+const { Router } = require('express');
+const { check } = require('express-validator');
+const { validarCampos } = require('../middlewares/validar-campos');
+
+const authContoller = require('../controllers/auth');
+
+const router = Router();
+
+router.post('/', 
+    [
+        check('password', 'El password es obligatorio').not().isEmpty(),
+        check('email', 'El email es obligatorio').isEmail(),
+        validarCampos
+    ],
+    authContoller.login
+)
+
+module.exports = router;
